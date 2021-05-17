@@ -3,8 +3,8 @@ export default {
     secondary: 'blue',
     accent: '#green',
     black: '#111',
-    white: '#eee',
-    light: '#f8f4f4',
+    white: '#fff',
+    light: '#eee',
     medium: '#6e6868',
     dark: '#0c0c0c',
     danger: '#ff5252'
