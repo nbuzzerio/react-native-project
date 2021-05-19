@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -8,6 +7,7 @@ import AppButton from "./AppButton";
 import AppTab from "./AppTab";
 import AppTextInput from "./AppTextInput";
 import colors from "../config/colors";
+import ErrorMessage from "./ErrorMessage";
 
 const signupSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -42,40 +42,46 @@ function AppLogin() {
         }}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, errors }) => (
+        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
           <>
             <AppTextInput
               autoCapitalize="none"
               autoCorrect={false}
               icon="email"
               keyboardType="email-address"
+              onBlur={() => setFieldTouched("email")}
               onChangeText={handleChange("email")}
               placeholder="Username"
               textContentType="emailAddress"
             />
-            <Text style={styles.error}>{errors.email}</Text>
+            <ErrorMessage error={errors.email} visible={touched.email} />
             <AppTextInput
               autoCapitalize="none"
               autoCorrect={false}
               icon="lock"
+              onBlur={() => setFieldTouched("password")}
               onChangeText={handleChange("password")}
               placeholder="Password"
               secureTextEntry
               textContentType="password"
             />
-            <Text style={styles.error}>{errors.password}</Text>
+            <ErrorMessage error={errors.password} visible={touched.password} />
             {signup && (
               <>
                 <AppTextInput
                   autoCapitalize="none"
                   autoCorrect={false}
                   icon="lock"
+                  onBlur={() => setFieldTouched("passwordConfirm")}
                   onChangeText={handleChange("passwordConfirm")}
                   placeholder="Confirm Password"
                   secureTextEntry
                   textContentType="password"
                 />
-                <Text style={styles.error}>{errors.passwordConfirm}</Text>
+                <ErrorMessage
+                  error={errors.passwordConfirm}
+                  visible={touched.passwordConfirm}
+                />
               </>
             )}
             <AppButton onPress={handleSubmit} title="Submit" />
@@ -97,9 +103,6 @@ const styles = StyleSheet.create({
   loginContainer: {
     alignItems: "center",
     width: "100%",
-  },
-  error: {
-    color: colors.danger,
   },
 });
 

@@ -31,7 +31,7 @@ function AppTab({ tabs, selected, setSelected }) {
 const styles = StyleSheet.create({
   row: {
     width: "100%",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   tab: {
     alignItems: "center",
