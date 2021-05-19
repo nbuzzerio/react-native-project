@@ -4,18 +4,16 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import AppButton from "./AppButton";
+import AppFormField from "./AppFormField";
 import AppTab from "./AppTab";
-import AppTextInput from "./AppTextInput";
 import colors from "../config/colors";
-import ErrorMessage from "./ErrorMessage";
 
 const signupSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(5).label("Password"),
-  passwordConfirm: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "Passwords must match"
-  ),
+  passwordConfirm: Yup.string()
+    .required()
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 const loginSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -42,45 +40,36 @@ function AppLogin() {
         }}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+        {({ handleSubmit }) => (
           <>
-            <AppTextInput
+            <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
               icon="email"
               keyboardType="email-address"
-              onBlur={() => setFieldTouched("email")}
-              onChangeText={handleChange("email")}
+              name="email"
               placeholder="Username"
               textContentType="emailAddress"
             />
-            <ErrorMessage error={errors.email} visible={touched.email} />
-            <AppTextInput
+            <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
               icon="lock"
-              onBlur={() => setFieldTouched("password")}
-              onChangeText={handleChange("password")}
+              name="password"
               placeholder="Password"
               secureTextEntry
               textContentType="password"
             />
-            <ErrorMessage error={errors.password} visible={touched.password} />
             {signup && (
               <>
-                <AppTextInput
+                <AppFormField
                   autoCapitalize="none"
                   autoCorrect={false}
                   icon="lock"
-                  onBlur={() => setFieldTouched("passwordConfirm")}
-                  onChangeText={handleChange("passwordConfirm")}
+                  name="passwordConfirm"
                   placeholder="Confirm Password"
                   secureTextEntry
                   textContentType="password"
-                />
-                <ErrorMessage
-                  error={errors.passwordConfirm}
-                  visible={touched.passwordConfirm}
                 />
               </>
             )}
