@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { Formik } from "formik";
 import * as Yup from "yup";
 
-import SubmitButton from "./SubmitButton";
-import AppForm from "./AppForm";
-import AppFormField from "./AppFormField";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppTab from "./AppTab";
 import colors from "../config/colors";
 
