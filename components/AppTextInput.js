@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     color: colors.dark,
-    fontSize: 25,
+    fontSize: 18,
     width: '100%',
   },
 });
