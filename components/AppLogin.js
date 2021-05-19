@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import AppButton from "./AppButton";
+import SubmitButton from "./SubmitButton";
 import AppFormField from "./AppFormField";
 import AppTab from "./AppTab";
 import colors from "../config/colors";
@@ -40,7 +40,7 @@ function AppLogin() {
         }}
         validationSchema={validationSchema}
       >
-        {({ handleSubmit }) => (
+        {() => (
           <>
             <AppFormField
               autoCapitalize="none"
@@ -73,7 +73,7 @@ function AppLogin() {
                 />
               </>
             )}
-            <AppButton onPress={handleSubmit} title="Submit" />
+            <SubmitButton title="Submit" />
             {!signup && (
               <TouchableOpacity>
                 <Text style={{ color: colors.accent }}>
