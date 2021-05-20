@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Image, ActivityIndicator, Text } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
+import AppActivityIndicator from "./components/AppActivityIndicator";
 import AppBanner from "./components/AppBanner";
 
 import AppLogin from "./components/AppLogin";
@@ -19,15 +20,8 @@ export default function App() {
 
   const screen = loggedIn ? (
     <Screen>
-      {authenticating && (
-        <View style={styles.indicator}>
-          <View style={styles.indicatorBox}>
-            <ActivityIndicator size="large" color={colors.white} />
-            <Text style={{ color: colors.white }}>Authenticating</Text>
-          </View>
-        </View>
-      )}
-      <AppBanner></AppBanner>
+      {authenticating && <AppActivityIndicator process={"Authenticating"} />}
+      <AppBanner />
       <Image style={styles.map} source={require("./assets/map.jpg")} />
     </Screen>
   ) : (
@@ -52,21 +46,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flex: 1,
     position: "relative",
-  },
-  indicator: {
-    height: "80%",
-    marginBottom: "40%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  indicatorBox: {
-    backgroundColor: colors.black,
-    borderRadius: 10,
-    height: "25%",
-    opacity: 0.8,
-    width: "35%",
-    justifyContent: "center",
-    alignItems: "center",
   },
   logo: {
     height: 70,
