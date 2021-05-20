@@ -5,16 +5,30 @@ import AppBanner from "./components/AppBanner";
 
 import AppLogin from "./components/AppLogin";
 import Screen from "./components/Screen";
+import Tiles from "./components/Tiles";
 import colors from "./config/colors";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [authenticating, setAuthenticating] = useState(false);
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     setAuthenticating(true);
     setTimeout(() => {
       setAuthenticating(false);
+      setUserData([
+        { title: "Open Orders", value: 1924, icon: null },
+        { title: "Routine Services", value: 676, icon: null },
+        { title: "Completed", value: 37, icon: null },
+        { title: "Messages", value: 0, icon: null },
+        { title: "Properties", value: 0, icon: "map" },
+        { title: "Favorites", value: 12, icon: null },
+        { title: "Tasks", value: 0, icon: null },
+        { title: "Network Queue", value: 0, icon: null },
+        { title: "Photos", value: 0, icon: "camera" },
+        { title: "Settings", value: 0, icon: "cog" },
+      ]);
     }, 1000);
   }, [loggedIn]);
 
@@ -22,7 +36,7 @@ export default function App() {
     <Screen>
       {authenticating && <AppActivityIndicator process={"Authenticating"} />}
       <AppBanner />
-      <Image style={styles.map} source={require("./assets/map.jpg")} />
+      <Tiles content={userData} columns={2}></Tiles>
     </Screen>
   ) : (
     <>
