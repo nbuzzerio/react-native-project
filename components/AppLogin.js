@@ -18,7 +18,7 @@ const loginSchema = Yup.object().shape({
   password: Yup.string().required().min(5).label("Password"),
 });
 
-function AppLogin() {
+function AppLogin({ setLoggedIn }) {
   const [selected, setSelected] = useState(0);
 
   const tabs = ["Login", "Signup"];
@@ -35,6 +35,7 @@ function AppLogin() {
         initialValues={initialValues}
         onSubmit={(values) => {
           console.log(values);
+          setLoggedIn(true);
         }}
         validationSchema={validationSchema}
       >
