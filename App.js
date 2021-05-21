@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
 
 import AppActivityIndicator from "./components/AppActivityIndicator";
 import AppBanner from "./components/AppBanner";
+import AppDrawerNav from "./components/AppDrawerNav";
 import AppLogin from "./components/AppLogin";
 import Screen from "./components/Screen";
 import Tiles from "./components/Tiles";
 import colors from "./config/colors";
-
-import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -36,7 +33,7 @@ export default function App() {
     }, 1000);
   }, [loggedIn]);
 
-  const Drawer = createDrawerNavigator();
+
 
   function HomeScreen({ navigation }) {
     return (
@@ -52,67 +49,8 @@ export default function App() {
     );
   }
 
-  const navList = userData.map(({ title, navIcon }) => {
-    return (
-      <Drawer.Screen
-        name={title}
-        component={HomeScreen}
-        options={{
-          drawerIcon: () => (
-            <FontAwesome5
-              size={23}
-              name={navIcon}
-              color={colors.accent}
-            ></FontAwesome5>
-          ),
-        }}
-      />
-    );
-  });
-
   const screen = loggedIn ? (
-    <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Home"
-        drawerStyle={styles.drawer}
-        drawerContentOptions={{
-          activeTintColor: colors.primary,
-          activeBackgroundColor: "grey",
-          inactiveTintColor: colors.white,
-          labelStyle: {
-            marginLeft: 5,
-          },
-        }}
-      >
-        <Drawer.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            drawerIcon: () => (
-              <FontAwesome5
-                size={23}
-                name={"map-signs"}
-                color={colors.accent}
-              ></FontAwesome5>
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Search"
-          component={HomeScreen}
-          options={{
-            drawerIcon: () => (
-              <FontAwesome5
-                size={23}
-                name={"search"}
-                color={colors.accent}
-              ></FontAwesome5>
-            ),
-          }}
-        />
-        {navList}
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <AppDrawerNav userData={userData} HomeScreen={HomeScreen}/>
   ) : (
     <>
       <View style={styles.logoContainer}>
@@ -135,10 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flex: 1,
     position: "relative",
-  },
-  drawer: {
-    backgroundColor: "#2e2e2e",
-    color: colors.white,
   },
   logo: {
     height: 70,
