@@ -11,18 +11,20 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import AppTextInput from "./AppTextInput";
 
-function AppBanner() {
+function AppBanner({ onNavPress }) {
   const [isSearching, setIsSearching] = useState(false);
   const [query, setQuery] = useState("");
 
   return (
     <View style={styles.banner}>
-      <FontAwesome5
-        name={"bars"}
-        size={30}
-        color={colors.white}
-        style={styles.icon}
-      />
+      <TouchableWithoutFeedback onPress={onNavPress}>
+        <FontAwesome5
+          name={"bars"}
+          size={30}
+          color={colors.white}
+          style={styles.icon}
+        />
+      </TouchableWithoutFeedback>
       {isSearching && (
         <View style={styles.search}>
           <AppTextInput
